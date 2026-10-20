@@ -68,12 +68,10 @@ jobs:
       - name: Add 404 fallback
         run: cp dist/client/index.html dist/client/404.html
 
+      # Pages must be enabled once by hand (Settings -> Pages -> Source: GitHub Actions).
+      # The workflow's token is not allowed to create the Pages site itself.
       - name: Configure Pages
         uses: actions/configure-pages@v5
-        with:
-          # Create the Pages site if it does not exist yet, so the first run on a
-          # fresh repository works without manually toggling Settings -> Pages.
-          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
