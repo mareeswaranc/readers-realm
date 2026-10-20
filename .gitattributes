@@ -1,0 +1,16 @@
+# Normalize line endings so the repo is consistent across Windows/macOS/Linux.
+* text=auto eol=lf
+
+# Binary assets must never be line-ending converted.
+*.ico binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.woff binary
+*.woff2 binary
+
+# Keep generated lockfiles out of language stats.
+package-lock.json linguist-generated=true
+bun.lock linguist-generated=true
