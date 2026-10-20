@@ -1,36 +1,74 @@
-# Arcane Story Atlas
+# Reader's Realm
 
-Build a visually stunning, animation-rich personal website called The Arcane Archive to showcase my books, manga, manhwa, anime, and other things I have read or watched.
+My personal website for the stories I've read and watched — books, manga, manhwa,
+anime, philosophy and web novels, all gathered in one place.
 
-The website should feel like entering a mysterious fantasy world: an ancient magical library combined with the dark fantasy atmosphere of Solo Leveling, glowing magical portals, floating particles, cinematic backgrounds, and premium dark UI design.
+It's a little archive of everything that has stuck with me: what I finished, what
+I'm partway through, what's queued up, and how I rated it. Built to feel like
+walking into a mysterious old library rather than scrolling a spreadsheet.
 
-Store collection information in a simple, editable TypeScript/JSON data file with demo entries so I can easily add, edit, or remove titles.
+## What's on it
 
-Visual identity:
-- Midnight black: #080B12
-- Deep navy: #10172A
-- Magical purple: #8B5CF6
-- Arcane blue: #38BDF8
-- Antique gold: #D4AF70
-- Soft white: #F5F3FF
-- Typography: Cinzel / fantasy serif for headings, Inter / Manrope for text. Elegant fantasy style, glowing borders, subtle gradients.
+- **A cinematic hero** — "Welcome to My World of Stories", with ambient rune glow
+  and floating particles.
+- **Five realms** — Written (books/novels), Inked (manga/manhwa), Animated (anime),
+  Wisdom (self-improvement/philosophy) and Endless Scroll (web novels). Each one
+  filters the archive.
+- **The archive** — every title as a card with its cover, type, my personal rating
+  and reading status. Search, filter by realm/status/genre, and sort by rating or
+  title. Click any card for a detail view with synopsis, rating and my own notes.
+- **Stories that stayed with me** — the handful of titles worth singling out, with
+  short personal notes.
+- **A chronicle** — charts and counters computed straight from the collection data.
+- **Two moods** — Arcane mode (full particles and glow) or Quiet mode (toned down).
+- **An atmospheric footer** — "The archive never ends."
 
-Key sections:
-1. Cinematic full-screen hero ("Welcome to My World of Stories", "Every story leaves a mark. Every world becomes a part of me.") with floating particles, ambient nebula/rune glow, cursor parallax, and quick action buttons ("Explore My Collection", "Enter the Archive").
-2. "Explore the Realms" 5 category portals: The Written Realms (books/novels), The Inked Realms (manga/manhwa), The Animated Realms (anime), The Realms of Wisdom (self-improvement/philosophy), The Endless Scroll (light/web novels). Clicking smoothly scrolls and filters the collection.
-3. Collection catalog: interactive cards with covers, type, personal ratings, status (Completed, Reading, Watching, Plan to Read). On hover: 3D tilt, lift, glowing border illumination. On click: rich detail modal with synopsis, personal rating, status, and personal notes. Instant search and filter tabs (type and status).
-4. "Stories That Stayed With Me": personal highlights section with horizontal showcase cards and personal quotes/notes.
-5. Reading and watching statistics: live counters computed directly from the collection data (total read, completed, watching, favorite genre).
-6. Ambient mode toggle: Arcane Mode (rich particles and glows) vs Quiet Mode (minimal ambient effects).
-7. Atmospheric starry footer with smooth fade into darkness ("The archive never ends. There is always another world to discover.") and scroll-to-top rune.
+The whole thing respects your OS "reduce motion" setting.
 
-## Development
+## Adding or changing titles
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+All the content lives in one file: [`src/data/collection.ts`](src/data/collection.ts).
+Add, edit or remove entries there and the site updates — the realms, filters,
+counters and charts are all derived from that list.
+
+## Running it locally
+
+You need Node.js and npm.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
+
+Then open the URL it prints (usually <http://localhost:8080>; if that port is
+taken it will pick the next free one).
+
+Other useful scripts:
+
+```sh
+npm run test      # run the test suite
+npm run lint      # lint the project
+npm run build     # production build
+```
+
+## Deployment
+
+The site is deployed to GitHub Pages by
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which
+runs on every push to `main`:
+
+1. Installs dependencies and runs the checks (lint + tests).
+2. Builds a **static export** — the app is normally server-rendered, but GitHub
+   Pages only serves static files, so the build prerenders the routes to real
+   HTML. This is switched on by the `GITHUB_PAGES=1` flag in `vite.config.ts`,
+   which also disables the server bundle. Normal builds are unaffected.
+3. Publishes the output to Pages.
+
+The asset base path is worked out from the repository name at runtime, so the
+same workflow works unchanged if the repo is ever renamed.
+
+Once deployed, the site is at **https://mareeswaranc.github.io/readers-realm/**.
+
+## Built with
+
+TanStack Start, React, TypeScript, Tailwind CSS and Recharts.
